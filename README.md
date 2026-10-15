@@ -1,28 +1,54 @@
 # Uruha
 
-The chroot machine learning environment for amdgpu with ROCm.
+The bubblewrap-based machine learning environment for amdgpu with ROCm.
+
+## Prerequisites
+
+Ensure `bubblewrap` (`bwrap`) is installed on your host system:
+
+```sh
+sudo apt install bubblewrap
+```
 
 ## Installation
 
-Choose the directory you prefer to storage your rootfs.
+Choose the directory you prefer to store your rootfs.
 
-For me, I chosen a drive mounted directory, because ROCm will cost more than 16GB, it's so large.
+For example, a dedicated mounted drive directory is recommended because ROCm suites will take more than 16GB:
 
 ```sh
 git clone https://github.com/supersonictw/uruha.git . # Checkout the repository
-bash init_rootfs.sh # Play the magic
+bash init_rootfs.sh # Initialize rootfs and setup ROCm + uv
 ```
 
-Yep, only two commands, the script will download the rootfs and install ROCm suites automatically.
-
 ## Usage
+
+Start an interactive shell in the container:
 
 ```sh
 bash activate.sh
 ```
 
-The script will mount/chroot/umount the rootfs automatically.
+Or run any command directly:
 
-The default shell is `bash`, and ["pyenv"](https://github.com/pyenv/pyenv) pre-installed, you can use "pyenv" to download/activate python version on your prefer.
+```sh
+bash activate.sh rocm-smi
+bash activate.sh uv run python train.py
+```
 
-The script default behavior will define `HSA_OVERRIDE_GFX_VERSION=10.3.0` in `/root/.bashrc` to support RX6XXX series RDNA2 GPUs, you can change the variable for supporting your device.
+The script will launch the container using `bubblewrap` with GPU devices (`/dev/kfd`, `/dev/dri`) mapped automatically.
+
+The default shell is `bash` with ["uv"](https://github.com/astral-sh/uv) pre-installed. You can use `uv` to manage Python versions and packages easily:
+
+```sh
+# Install a specific Python version
+uv python install 3.10
+
+# Create a virtual environment
+uv venv
+
+# Install PyTorch with ROCm
+uv pip install torch --index-url https://download.pytorch.org/whl/rocm6.4
+```
+
+The script's default setup defines `HSA_OVERRIDE_GFX_VERSION=10.3.0` in `/root/.bashrc` to support RX6XXX series RDNA2 GPUs. For RDNA3 (e.g. RX 7900 series, gfx1100) or other supported cards, ROCm works natively and you can comment out or adjust the variable.
