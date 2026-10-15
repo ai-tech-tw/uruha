@@ -6,9 +6,10 @@ The bubblewrap-based machine learning environment for amdgpu with ROCm.
 
 Ensure `bubblewrap` (`bwrap`) is installed on your host system:
 
-```sh
-sudo apt install bubblewrap
-```
+- **Debian / Ubuntu**: `sudo apt install bubblewrap`
+- **Fedora / RHEL / Rocky Linux**: `sudo dnf install bubblewrap`
+- **Arch Linux**: `sudo pacman -S bubblewrap`
+- **openSUSE**: `sudo zypper install bubblewrap`
 
 ## Installation
 
