@@ -19,7 +19,7 @@ if [ "$EUID" != 0 ]; then
     SUDO="sudo"
 fi
 
-$SUDO wget -O "$URUHA_WORK_DIRECTORY/rootfs.tar.gz" http://cdimage.ubuntu.com/ubuntu-base/releases/22.04/release/ubuntu-base-22.04.5-base-amd64.tar.gz
+$SUDO wget -O "$URUHA_WORK_DIRECTORY/rootfs.tar.gz" http://cdimage.ubuntu.com/ubuntu-base/releases/24.04/release/ubuntu-base-24.04.5-base-amd64.tar.gz
 
 $SUDO mkdir "$URUHA_WORK_DIRECTORY/rootfs"
 

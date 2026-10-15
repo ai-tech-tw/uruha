@@ -6,7 +6,7 @@ apt-get update
 apt-get install -y --no-install-recommends \
     build-essential ca-certificates curl git gpg wget python3 dropbear
 
-wget -O /tmp/amdgpu-install.deb https://repo.radeon.com/amdgpu-install/6.4.4/ubuntu/jammy/amdgpu-install_6.4.60404-1_all.deb
+wget -O /tmp/amdgpu-install.deb https://repo.radeon.com/amdgpu-install/6.4.4/ubuntu/noble/amdgpu-install_6.4.60404-1_all.deb
 
 apt-get install -y -f \
     /tmp/amdgpu-install.deb &&
